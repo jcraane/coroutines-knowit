@@ -1,9 +1,9 @@
 package nl.jamiecraane.knowit.coroutines.samples
 
 import kotlinx.coroutines.*
-import nl.jamiecraane.knowit.coroutines.Person
-import nl.jamiecraane.knowit.coroutines.Task
-import nl.jamiecraane.knowit.coroutines.log
+import nl.jamiecraane.knowit.shared.Person
+import nl.jamiecraane.knowit.shared.Task
+import nl.jamiecraane.knowit.shared.log
 import kotlin.system.measureTimeMillis
 
 // wait for result on two parallel requests

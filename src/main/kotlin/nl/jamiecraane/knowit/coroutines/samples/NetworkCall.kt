@@ -6,9 +6,9 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.readText
 import kotlinx.coroutines.*
 import kotlinx.serialization.builtins.list
-import nl.jamiecraane.knowit.coroutines.Person
-import nl.jamiecraane.knowit.coroutines.jsonParser
-import nl.jamiecraane.knowit.coroutines.log
+import nl.jamiecraane.knowit.shared.Person
+import nl.jamiecraane.knowit.shared.jsonParser
+import nl.jamiecraane.knowit.shared.log
 
 fun main() = runBlocking<Unit> {
     launch { // Main safety, always launch on main

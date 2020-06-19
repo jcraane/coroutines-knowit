@@ -1,4 +1,4 @@
-package nl.jamiecraane.knowit.coroutines
+package nl.jamiecraane.knowit.shared
 
 import kotlinx.serialization.Serializable
 
