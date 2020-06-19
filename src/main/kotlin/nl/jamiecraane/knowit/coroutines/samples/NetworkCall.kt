@@ -1,4 +1,4 @@
-package nl.jamiecraane.knowit.coroutines
+package nl.jamiecraane.knowit.coroutines.samples
 
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
@@ -6,8 +6,9 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.readText
 import kotlinx.coroutines.*
 import kotlinx.serialization.builtins.list
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
+import nl.jamiecraane.knowit.coroutines.Person
+import nl.jamiecraane.knowit.coroutines.jsonParser
+import nl.jamiecraane.knowit.coroutines.log
 
 fun main() = runBlocking<Unit> {
     launch { // Main safety, always launch on main
@@ -20,6 +21,7 @@ fun main() = runBlocking<Unit> {
     println("DONE")
 }
 
+// suspend function can only be called from a launch or async block or from within another suspend function
 private suspend fun retrievePersons(): List<Person> {
     log("in retrievePersons")
     val response = HttpClient().get<HttpResponse>("http://localhost:2500/persons")
