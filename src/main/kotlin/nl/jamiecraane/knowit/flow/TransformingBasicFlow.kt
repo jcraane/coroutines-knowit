@@ -1,9 +1,10 @@
 package nl.jamiecraane.knowit.flow
 
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import nl.jamiecraane.knowit.shared.log
 
 fun main() = runBlocking<Unit> {
 //    flows are cold by default (channels are hot)
@@ -12,7 +13,6 @@ fun main() = runBlocking<Unit> {
 
     val stringFlow = flow<String> {
         for (i in 0..50) {
-            println("Emit value")
             emit("Emit ${i.toString()}")
         }
     }
@@ -21,7 +21,15 @@ fun main() = runBlocking<Unit> {
 
     launch {
 //        collect is a suspending function an must be called from a coroutine
-        stringFlow.collect {
+//        each operator is a suspending function
+        stringFlow
+            .map { it.split(" ") }
+            .map { it.last() }
+            .onEach {
+                log("delaying")
+                delay(100)
+            }
+            .collect {
             println(it)
         }
     }
