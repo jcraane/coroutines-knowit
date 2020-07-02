@@ -1,5 +1,6 @@
 package nl.jamiecraane.knowit.flow
 
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -11,8 +12,9 @@ fun main() = runBlocking<Unit> {
 //    thread communication and back pressure is implemented using coroutines
 
     val stringFlow = flow<String> {
-        for (i in 0..50) {
+        for (i in 0..10) {
             println("Emit value")
+            delay(1000) // pretend we are doing something useful
             emit("Emit ${i.toString()}")
         }
     }
