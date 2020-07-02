@@ -22,11 +22,12 @@ fun main() = runBlocking<Unit> {
 }
 
 // suspend function can only be called from a launch or async block or from within another suspend function
-private suspend fun retrievePersons(): List<Person> {
+// Main safety, always launch on main also means execute network and io on IO thread (NetworkOnMainThreadException)
+private suspend fun retrievePersons(): List<Person> = withContext(Dispatchers.IO) {
     log("in retrievePersons")
     val response = HttpClient().get<HttpResponse>("http://localhost:2500/persons")
     val persons = jsonParser.parse(Person.serializer().list, response.readText())
-    return expensiveOperation(persons)
+    expensiveOperation(persons)
 //    return persons
 }
 
