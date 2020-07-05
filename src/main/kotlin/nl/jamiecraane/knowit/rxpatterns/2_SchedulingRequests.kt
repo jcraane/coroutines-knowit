@@ -18,7 +18,7 @@ fun main() = runBlocking<Unit> {
 }
 
 @ExperimentalTime
-private tailrec suspend fun schedule(interval: Duration, block: suspend () -> Unit) {
+tailrec suspend fun schedule(interval: Duration, block: suspend () -> Unit) {
     block()
     delay(interval.toLongMilliseconds())
     schedule(interval, block)
