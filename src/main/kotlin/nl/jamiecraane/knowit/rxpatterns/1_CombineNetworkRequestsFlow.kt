@@ -1,14 +1,7 @@
-package nl.jamiecraane.knowit.flow
+package nl.jamiecraane.knowit.rxpatterns
 
-import com.google.gson.GsonBuilder
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import okhttp3.mockwebserver.MockResponse
-import okhttp3.mockwebserver.MockWebServer
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Query
 import kotlin.system.measureTimeMillis
 
 @FlowPreview
