@@ -5,8 +5,8 @@ import nl.jamiecraane.knowit.shared.log
 import kotlin.system.measureTimeMillis
 
 fun main() = runBlocking<Unit> {
-    sequential()
-//    parallel()
+//    sequential()
+    parallel()
 
 }
 
@@ -16,8 +16,8 @@ private fun CoroutineScope.parallel() {
         val time = measureTimeMillis {
             val results = mutableListOf<Int>()
             val jobs = mutableListOf<Job>()
-            for (i in 0..100) {
-                jobs += launch {
+            for (i in 0..10000) {
+                jobs += launch(Dispatchers.IO) {
                     results += expensiveOperation(i)
                 }
             }

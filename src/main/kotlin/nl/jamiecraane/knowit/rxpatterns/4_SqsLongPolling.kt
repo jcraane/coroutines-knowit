@@ -1,25 +1,28 @@
 package nl.jamiecraane.knowit.rxpatterns
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import java.lang.RuntimeException
 
 fun main() = runBlocking<Unit> {
+    val sqsMessages = flow {
+        while (true) {
+            emit(receiveFromSqsQueue())
+        }
+    }
+
     launch {
-        pollSqs()
+        sqsMessages.collect {
+            processMessages(it)
+        }
     }
 }
 
-private suspend fun pollSqs() {
-    println("<top>.pollSqs")
-    receiveAndProcess()
-    pollSqs()
-}
-
-private suspend fun receiveAndProcess() = supervisorScope {
+private suspend fun processMessages(messages: List<String>) = supervisorScope {
     println("<top>.receiveAndProcess")
-    val messages = receiveFromSqsQueue()
     messages.map {
-        async(Dispatchers.IO) { processMessage(it) }
+        async(Dispatchers.Default) { processMessage(it) }
     }.map {
         try {
             it.await()

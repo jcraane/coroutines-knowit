@@ -12,11 +12,11 @@ import kotlin.system.measureTimeMillis
 
 fun main() = runBlocking<Unit> {
     launch {
-        val sequentialTime = measureTimeMillis {
+       /* val sequentialTime = measureTimeMillis {
             executeSequential()
         }
         println("SEQUENTIAL $sequentialTime")
-
+*/
         val parallelTime = measureTimeMillis {
             executeInParallel()
         }
@@ -26,7 +26,7 @@ fun main() = runBlocking<Unit> {
 
 private suspend fun executeSequential(): Pair<List<Person>, List<Task>> = coroutineScope {
     // withContext is same as async{}.await()
-    val persons = withContext(Dispatchers.IO) { retrievePersons() }
+    val persons = retrievePersons()
     val tasks = withContext(Dispatchers.IO) { retrieveTasks() }
     persons to tasks
 }

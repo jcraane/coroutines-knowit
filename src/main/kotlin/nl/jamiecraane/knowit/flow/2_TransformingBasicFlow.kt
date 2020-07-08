@@ -27,7 +27,7 @@ fun main() = runBlocking<Unit> {
             .map { it.last() }
             .onEach {
                 log("delaying")
-                delay(100)
+                delay(1000)
             }
             .collect {
             println(it)
