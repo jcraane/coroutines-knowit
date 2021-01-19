@@ -5,7 +5,7 @@ import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.readText
 import kotlinx.coroutines.*
-import kotlinx.serialization.builtins.list
+import kotlinx.serialization.builtins.ListSerializer
 import nl.jamiecraane.knowit.shared.Person
 import nl.jamiecraane.knowit.shared.jsonParser
 import nl.jamiecraane.knowit.shared.log
@@ -26,7 +26,7 @@ fun main() = runBlocking<Unit> {
 private suspend fun retrievePersons(): List<Person> = withContext(Dispatchers.IO) {
     log("in retrievePersons")
     val response = HttpClient().get<HttpResponse>("http://localhost:2500/persons")
-    val persons = jsonParser.parse(Person.serializer().list, response.readText())
+    val persons = jsonParser.decodeFromString(ListSerializer(Person.serializer()), response.readText())
     expensiveOperation(persons)
 //    return persons
 }
